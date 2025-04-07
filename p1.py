@@ -6,13 +6,16 @@ from in_dat import *
 mu0 = 4*pi*1e-7
 e0 =  8.8541878188e-12
 
-d = array([sqrt(d[0]**2 + (h[1] - h[0])**2), sum(d), sqrt(d[1]**2 + (h[1] - h[0])**2)])
-# d = array([sqrt(x[0]**2 + (h[1] - h[0])**2), sum(x), sqrt(x[1]**2 + (h[1] - h[0])**2)])
-D = array([2*h[0], sqrt((2*h[1])**2 + d[0]**2), sqrt((2*h[0])**2 + (d[0] + d[1])**2)])
+# d = array([sqrt(x[0]**2 + (h[1] + h[0])**2), sum(x), sqrt(x[1]**2 + (h[1] + h[0])**2)])
+# x = array([sqrt(x[0]**2 + (h[1] - h[0])**2), sum(xx), sqrt(x[1]**2 + (h[1] - h[0])**2)])
+# D = array([2*h[0], sqrt((2*h[1])**2 + x[0]**2), sqrt((2*h[0])**2 + (x[0] + x[1])**2)])
+
+d = array([sqrt(x[0]**2 + (h[1] - h[0])**2), sum(x), sqrt(x[1]**2 + (h[1] - h[0])**2)])
+D = array([2*h[0], sqrt((2*h[1])**2 + x[0]**2), sqrt((h[0] + h[1])**2 + x[1]**2)])
 
 h_av = prod(h)**(1/3)
-D_av = prod(D)**(1/3)
 d_av = prod(d)**(1/3)
+D_av = prod(D)**(1/3)
 # r_e = ()**(1/3)
 l_av = mu0 / (2*pi) * log(2*h_av / r_w)
 m = mu0 / (2*pi) * log(D_av / d_av)
@@ -45,6 +48,7 @@ l_pp = abs(l1 - l_p) / 3
 
 
 # print(l_p.mean())
+print(D_av)
 print(l_p)
 print(l_pp)
 # print(l_p*10**3)

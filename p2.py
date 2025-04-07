@@ -1,5 +1,5 @@
 # С потерями
-from numpy import array, diag, average, triu, sqrt
+from numpy import array, diag, average, triu, sqrt, shape
 
 r0 = 0.096
 f = array([50, 100000, 50])
@@ -41,28 +41,21 @@ l = array([[[1.7919e-003,  8.9176e-004,  8.8760e-004],
            [1.1154e-003, 2.0174e-003, 1.2173e-003],
            [1.1120e-003, 1.2173e-003, 2.0166e-003]]])
 
-l_dg0 = diag(l[0])
-l_dg1 = diag(l[1])
-l_dg2 = diag(l[2])
+l_dg = array([diag(l[0]), diag(l[1]), diag(l[2])])
+l_tr = array([triu(l[0], k=1), triu(l[1], k=1), triu(l[2], k=1)])
 
-l_tr0 = triu(l[0], k=1)
-l_tr1 = triu(l[1], k=1)
-l_tr2 = triu(l[2], k=1)
+l_p = array([average(l_dg[0]), average(l_dg[1]), average(l_dg[2])])
+# l_pp = array([average(l_tr[0]), average(l_tr[1]), average(l_tr[2])])
+l_pp = array([(l_tr[0, 0, 1] + l_tr[0, 0, 2] + l_tr[0, 1, 2]) / 3, (l_tr[1, 0, 1] + l_tr[1, 0, 2] + l_tr[1, 1, 2]) / 3,
+              ((l_tr[2, 0, 1] + l_tr[2, 0, 2] + l_tr[2, 1, 2]) / 3)])
 
-l_p = array([average(l_dg0), average(l_dg1), average(l_dg2)])
-l_pp = array([average(l_tr0), average(l_tr1), average(l_tr2)])
+c_dg = array([diag(c[0]), diag(c[1]), diag(c[2])])
+c_tr = array([triu(c[0], k=1), triu(c[1], k=1), triu(c[2], k=1)])
 
-c_dg0 = diag(c[0])
-c_dg1 = diag(c[1])
-c_dg2 = diag(c[2])
-
-c_tr0 = triu(c[0], k=1)
-c_tr1 = triu(c[1], k=1)
-c_tr2 = triu(c[2], k=1)
-
-c_p = array([average(c_dg0), average(c_dg1), average(c_dg2)])
-c_pp = array([average(c_tr0), average(c_tr1), average(c_tr2)])
-
+c_p = array([average(c_dg[0]), average(c_dg[1]), average(c_dg[2])])
+# c_pp = array([average(c_tr[0]), average(c_tr[1]), average(c_tr[2])])
+c_pp = array([(c_tr[0, 0, 1] + c_tr[0, 0, 2] + c_tr[0, 1, 2]) / 3, (c_tr[1, 0, 1] + c_tr[1, 0, 2] + c_tr[1, 1, 2]) / 3,
+              ((c_tr[2, 0, 1] + c_tr[2, 0, 2] + c_tr[2, 1, 2]) / 3)])
 c1 = c_p + 3*c_pp
 c0 = c_p
 
@@ -83,3 +76,9 @@ v_c0 = sqrt(1 / (l0 * c0))
 # print(c_pp)
 # print(triu(l, k=1))
 # print(triu(c, k=1))
+# print(shape(l_tr))
+print(l_tr[0])
+print(l_tr[0, 0, 1])
+print(l_pp[0])
+# c_dg[0, 1] - 0 строка, 1 столбец
+# print(diag(l0))
