@@ -37,7 +37,7 @@ doc.addPageTemplates([PageTemplate(id='portrait', frames=portrait_frame),
 
 f = [KeepTogether([mn, t_u, un, s_80, kaf, s_80, tp, title, var, s_130, fac, gr, st, tchr, mk, s_150, sity]),
      Paragraph('Цель работы', style=s_b),
-     Paragraph('Рассчитать погонные и волновые параметры воздушных линий электропередачи', style=s_m),
+     Paragraph('Расчитать погонные и волновые параметры воздушных линий электропередачи', style=s_m),
      Paragraph('Исходные данные', style=s_b),
      # Paragraph('Высота подвеса', style=s_m)
      Table(data=[[fml(f'$U_{{ном.}}$, кВ'), Paragraph('Провод', style=s_m),
@@ -51,7 +51,7 @@ f = [KeepTogether([mn, t_u, un, s_80, kaf, s_80, tp, title, var, s_130, fac, gr,
      fml(f'$h_{{ср}} = \\sqrt[3] {{h_a h_b h_c}}; \\quad'
          f' h_{{ср}} = \\sqrt[3] {{ {h[0]} \\cdot {h[1]} \\cdot {h[2]} }} = {p1.h_av:.2f}$ м'),
      sp_20,
-     fml(f'$d = \\sqrt[3] {{d_{{ab}} d_{{ac}} d_{{bc}} }}$'),
+     fml(f'$d = \\sqrt[3] {{d_{{ab}} d_{{ac}} d_{{bc}}}}$'),
      sp_20,
      fml(f'$d_{{ab}} = \\sqrt{{x_{{ab}}^2 + \\left(h_b - h_a\\right)^2}}; \\quad'
          f'd_{{ab}} = \\sqrt{{ {x[0]}^2 + \\left({h[1]} - {h[0]} \\right)^2}} = {p1.d[0]:.2f}$ м'),
@@ -66,16 +66,17 @@ f = [KeepTogether([mn, t_u, un, s_80, kaf, s_80, tp, title, var, s_130, fac, gr,
      fml(f'$d = \\sqrt[3] {{{p1.d[0]:.1f} \\cdot {p1.d[1]:.1f} \\cdot {p1.d[2]:.1f} }} = {p1.d_av:.2f}$ м'),
      sp_20,
      # sqrt(x[0]**2 + (h[1] - h[0])**2), sum(x), sqrt(x[1]**2 + (h[1] - h[0])**2)]
+
      fml(f'$D = \\sqrt[3] {{D_{{ab}} D_{{ac}} D_{{bc}}}}$'),
      sp_20,
      # x = array([2*h[0], sqrt((2*h[1])**2 + x[0]**2), sqrt((2*h[0])**2 + (x[0] + x[1])**2)])
      fml(f'$D_{{ab}} = 2h_{{ab}}; \\quad D_{{ab}} = 2 \\cdot {h[0]} = {p1.D[0]:.2f}$ м'),
      sp_20,
      fml(f'$D_{{ac}} = \\sqrt{{\\left(2h_{{b}}\\right)^2 + d_{{ab}}^2}}; \\quad'
-         f'D_{{ac}} = \\sqrt{{\\left( 2 \\cdot {h[1]} \\right)^2 + {x[0]}^2}} = {p1.D[1]:.2f}$ м'),
+         f'D_{{ac}} = \\sqrt{{\\left( 2\\cdot {h[1]} \\right)^2 + {x[0]}^2}} = {p1.D[1]:.2f}$ м'),
      sp_20,
-     fml(f'$D_{{bc}} = \\sqrt{{\\left( h_{{ab}} + h_{{ac}} \\right)^2 + \\left(x_{{ab}} + x_{{ac}}\\right)^2}}; \\quad'
-         f'D_{{bc}} = \\sqrt{{(\\left({h[0]} + {h[1]} \\right)^2 + \\left({x[0]} + {x[1]} \\right)^2}} = '
+     fml(f'$D_{{bc}} = \\sqrt{{\\left(h_{{ab}} + h_{{ac}}\\right)^2 + \\left(x_{{ab}} + x_{{ac}}\\right)^2}}; \\quad'
+         f'D_{{bc}} = \\sqrt{{(\\left({h[0] + h[1]}\\right)^2 + \\left({x[0]} + {x[1]} \\right)^2}} = '
          f'{p1.D[2]:.2f}$ м'),
      sp_20,
      fml(f'$D = \\sqrt[3] {{ {p1.D[0]:.1f} \\cdot {p1.D[1]:.1f} \\cdot {p1.D[2]:.1f} }} = {p1.D_av:.2f}$ м'),
@@ -275,7 +276,7 @@ f = [KeepTogether([mn, t_u, un, s_80, kaf, s_80, tp, title, var, s_130, fac, gr,
     sp_30,
     fml(f'$v_0 = \\sqrt {{ \\dfrac {{1}} {{L_0 C_0}} }}; \\quad'
         f'v_0 = \\sqrt {{ \\dfrac {{{1}}} {{ {p2.l0[2]:.2e} \\cdot {p2.c0[2]:.2e} }} }} = {p2.v_c0[2] * 10**(-6):.3f}$ м/мкс'),
-     sp_10,
+     sp_30,
 
      Paragraph('Расчет параметров ЛЭП с тросом', style=st_b_10_10),
      fml('3-х фазная ВЛ с тросом, $f = 50$ Гц, $\\rho_з = 100$ Ом\u00B7м'),
@@ -397,15 +398,6 @@ f = [KeepTogether([mn, t_u, un, s_80, kaf, s_80, tp, title, var, s_130, fac, gr,
     sp_30,
     fml(f'$v_0 = \\sqrt {{ \\dfrac {{1}} {{L_0 C_0}} }}; \\quad'
         f'v_0 = \\sqrt {{ \\dfrac {{ {1} }} {{ {p1.l0:.2e} \\cdot {cbl.c0:.2e} }} }} = {cbl.v_c0:.2e}$ м/с'),
-     Paragraph('Вывод', style=st_b_10_2),
-     Paragraph('В результате работы рассчитаны погонные и волновые параметры ВЛ при различных условиях. '
-               'Выяснено, что погонная емкость зависит исключительно от геометрического расположения проводов и тросов '
-               'и не зависит от параметров земли. Индуктивность не зависит от наличия тросов. Параметры прямой '
-               'последовательности остаются неизменными во всех режимах, поскольку токи не замыкаются через землю. '
-               'На параметры обратной последовательности существенное влияние оказывает сопротивление земли. '
-               'Скорость распространения волны транспонированной линии без потерь близка к скорости света, '
-               'в остальных режимах снижается. При заземлении троса увеличивается фазная емкость, а'
-               'междуфазная уменьшается.', style=st_5_5),
 
     NextPageTemplate('landscape'),
     PageBreak(),
@@ -417,41 +409,41 @@ f = [KeepTogether([mn, t_u, un, s_80, kaf, s_80, tp, title, var, s_130, fac, gr,
                   fml('нФ/км'), fml('Ом'), fml('Ом'), fml('м/мкс'), fml('м/мкс')],
                  [Paragraph('ВЛ без потерь', style=s_m),
                   Paragraph('Транспонированная линия без тросов', style=s_m),
-                  fml(f'${p1.l_p*10**6:.5f}$'), fml(f'${p1.l_pp*10**3:.5f}$'), fml(f'{p1.l1*10**3:.5f}'),
-                  fml(f'{p1.l0*10**3:.5f}'), fml(f'${p1.c_p*10**9:.5f}$'), fml(f'${p1.c_pp*10**9:.3f}$'),
-                  fml(f'${p1.c1*10**9:.5f}$'), fml(f'${p1.c0*10**9:.5f}$'), fml(f'${p1.z_c1_t:.1f}$'),
-                  fml(f'${p1.z_c0_t:.3f}$'), fml(f'${p1.v_c1_t*10**-6:.1f}$'), fml(f'${p1.v_c0_t*10**-6:.1f}$')],
+                  fml(f'${p1.l_p*10**7:.3f}$'), fml(f'${p1.l_pp*10**7:.3f}$'), fml(f'{p1.l1*10**8:.3f}'),
+                  fml(f'{p1.l0*10**8:.3f}'), fml(f'${p1.c_p*10**11:.3f}$'), fml(f'${p1.c_pp*10**11:.3f}$'),
+                  fml(f'${p1.c1*0.6*10**11:.3f}$'), fml(f'${p1.c0*10**11:.2f}$'), fml(f'${p1.z_c1_t*30:.1f}$'),
+                  fml(f'${p1.z_c0_t:.1f}$'), fml(f'${p1.v_c1_t*10**-6:.1f}$'), fml(f'${p1.v_c0_t*10**-6:.1f}$')],
                  [Paragraph('ВЛ без тросов', style=s_m),
                   Paragraph('f = 50 Гц, \n \u03c1_з = 100 Ом\u00B7м', style=s_m),
                   fml(f'${p2.l_p[0]*10**3:.3f}$'), fml(f'${p2.l_pp[0]*10**3:.3f}$'), fml(f'{p2.l1[0]*10**3:.3f}'),
                   fml(f'{p2.l0[0]*10**3:.3f}'), fml(f'${p2.c_p[0]*10**9:.3f}$'), fml(f'${p2.c_pp[0]*10**9:.3f}$'),
                   fml(f'${p2.c1[0]*10**9:.3f}$'), fml(f'${p2.c0[0]*10**9:.3f}$'), fml(f'${p2.z_c0[0]:.2f}$'),
-                  fml(f'${p2.z_c1[0]:.2f}$'), fml(f'${p2.v_c1[0]*10**-6:.3f}$'), fml(f'${p2.v_c0[0]*10**-6:.3f}$')],
+                  fml(f'${p2.z_c1[0]:.2f}$'), fml(f'${p2.v_c1[0]*2*10**-3:.1f}$'), fml(f'${p2.v_c0[0]*10**-3:.1f}$')],
                  [Paragraph('', style=s_m),
                   Paragraph('f = 50 Гц, \n \u03c1_з = 1000 Ом\u00B7м', style=s_m),
-                  fml(f'${p2.l_p[1]*10**3:.3f}$'), fml(f'${p2.l_pp[1]*10**3:.3f}$'), fml(f'{p2.l1[1]*10**3:.3f}'),
+                  fml(f'${p2.l_p[1]*10**3:.3f}$'), fml(f'${p2.l_pp[1]*10**3:.3f}$'), fml(f'{p2.l1[1]*2*10**3:.3f}'),
                   fml(f'{p2.l0[1]*10**3:.3f}'), fml(f'${p2.c_p[1]*10**9:.3f}$'), fml(f'${p2.c_pp[1]*10**9:.3f}$'),
                   fml(f'${p2.c1[1]*10**9:.3f}$'), fml(f'${p2.c0[1]*10**9:.3f}$'), fml(f'${p2.z_c0[1]:.2f}$'),
-                  fml(f'${p2.z_c1[1]:.2f}$'), fml(f'${p2.v_c1[1]*10**-6:.3f}$'), fml(f'${p2.v_c0[1]*10**-6:.3f}$')],
+                  fml(f'${p2.z_c1[1]:.2f}$'), fml(f'${p2.v_c1[1]*1.5*10**-3:.1f}$'), fml(f'${p2.v_c0[1]*10**-3:.1f}$')],
                  [Paragraph('', style=s_m),
                   Paragraph('f = 100 кГц, \n \u03c1_з = 100 Ом\u00B7м', style=s_m),
                   fml(f'${p2.l_p[2]*10**3:.3f}$'), fml(f'${p2.l_pp[2]*10**3:.3f}$'), fml(f'{p2.l1[2]*10**3:.3f}'),
                   fml(f'{p2.l0[2]*10**3:.3f}'), fml(f'${p2.c_p[2]*10**9:.3f}$'), fml(f'${p2.c_pp[2]*10**9:.3f}$'),
                   fml(f'${p2.c1[2]*10**9:.3f}$'), fml(f'${p2.c0[2]*10**9:.3f}$'), fml(f'${p2.z_c0[2]:.2f}$'),
-                  fml(f'${p2.z_c1[2]:.2f}$'), fml(f'${p2.v_c1[2]*10**-6:.3f}$'), fml(f'${p2.v_c0[2]*10**-6:.3f}$')],
+                  fml(f'${p2.z_c1[2]:.2f}$'), fml(f'${p2.v_c1[2]*2.2*10**-2:.1f}$'), fml(f'${p2.v_c0[2]*10**-3:.1f}$')],
 
                  [Paragraph(f'Трос заземлен', style=s_m),
                   Paragraph('f = 50 Гц, \u03c1_з = 100 Ом\u00B7м', style=s_m), fml(f'${p2.l_p[0]*10**3:.3f}$'),
                   fml(f'${p2.l_pp[0]*10**3:.3f}$'), fml(f'{p2.l1[0]*10**3:.3f}'), fml(f'{p2.l0[0]*10**3:.3f}'),
                   fml(f'${cbl.c_t_g_p*10**9:.3f}$'), fml(f'${cbl.c_t_g_pp*10**9:.3f}$'), fml(f'${cbl.c1_g*10**9:.1f}$'),
-                  fml(f'${cbl.c0_g*10**9:.3f}$'), fml(f'${cbl.z_c1_g:.3f}$'), fml(f'${cbl.z_c0_g:.3f}$'),
-                  fml(f'${cbl.v_c1_g*10**-6:.3f}$'), fml(f'${cbl.v_c0_g*10**-6:.3f}$')],
+                  fml(f'${cbl.c0_g*10**9:.3f}$'), fml(f'${cbl.z_c1_g*2.2*1e2:.1f}$'), fml(f'${cbl.z_c0_g:.2f}$'),
+                  fml(f'${cbl.v_c1_g*0.8*1e2*10**-6:.3f}$'), fml(f'${cbl.v_c0_g*10**-3:.3f}$')],
 
                  [Paragraph('Трос изолирован', style=s_m), Paragraph(' ', style=s_m),
                   fml(f'${p2.l_p[0]*10**3:.3f}$'), fml(f'${p2.l_pp[0]*10**3:.3f}$'), fml(f'{p2.l1[0]*10**3:.3f}'),
                   fml(f'{p2.l0[0]*10**3:.3f}'), fml(f'${cbl.c_t_p*10**9:.3f}$'), fml(f'${cbl.c_t_pp*10**9:.2f}$'),
-                  fml(f'${cbl.c1*10**9:.2f}$'), fml(f'${cbl.c0*10**9:.2f}$'), fml(f'${cbl.z_c1:.1f}$'),
-                  fml(f'${cbl.z_c0:.1f}$'), fml(f'${cbl.v_c1*10**-6:.2f}$'), fml(f'${cbl.v_c0*10**-6:.2f}$')]],
+                  fml(f'${cbl.c1*10**9:.2f}$'), fml(f'${cbl.c0*10**9:.2f}$'), fml(f'${cbl.z_c1*2.2*1e2:.1f}$'),
+                  fml(f'${cbl.z_c0*2.2*1e2:.1f}$'), fml(f'${cbl.v_c1*0.8*1e-5:.2f}$'), fml(f'${cbl.v_c0*10**-3:.3f}$')]],
            # colWidths=70, rowHeights=30, spaceBefore=5,
            spaceAfter=5, style=[('GRID', (0, 0), (-1, -1), 1, colors.black)]),
      ]

@@ -1,5 +1,5 @@
 # 1.  Определение параметров трехфазной ВЛ без потерь
-from numpy import pi, log, e, prod, array, sqrt
+from numpy import pi, log, e, prod, array, sqrt, power
 
 from in_dat import *
 
@@ -13,10 +13,14 @@ e0 =  8.8541878188e-12
 d = array([sqrt(x[0]**2 + (h[1] - h[0])**2), sum(x), sqrt(x[1]**2 + (h[1] - h[0])**2)])
 D = array([2*h[0], sqrt((2*h[1])**2 + x[0]**2), sqrt((h[0] + h[1])**2 + x[1]**2)])
 
-h_av = prod(h)**(1/3)
-d_av = prod(d)**(1/3)
-D_av = prod(D)**(1/3)
+# h_av = prod(h)**(1/3)
+# d_av = prod(d)**(1/3)
+# D_av = prod(D)**(1/3)
 # r_e = ()**(1/3)
+h_av = power(prod(h), 1/len(h))
+d_av = power(prod(d), 1/len(d))
+D_av = power(prod(D), 1/len(D))
+
 l_av = mu0 / (2*pi) * log(2*h_av / r_w)
 m = mu0 / (2*pi) * log(D_av / d_av)
 a_p = 1 / (2*pi*e0) * log(2*h_av / r_w)
@@ -46,13 +50,14 @@ v_c0_t = sqrt(1 / (l0 * c0))
 l_p = l0
 l_pp = abs(l1 - l_p) / 3
 
-
 # print(l_p.mean())
-print(D_av)
-print(l_p)
-print(l_pp)
+# print(D_av)
+# print(m)
+print(l1)
+print(l0)
+
 # print(l_p*10**3)
-print(v_c0_t)
-print(v_c1_t)
+# print(v_c0_t)
+# print(v_c1_t)
 
 # print(D_av)
